@@ -33,6 +33,6 @@
 }
 .gameArea-playArea {
   width: 75%;
-  background-color: lightblue;
+  background-color: rgb(236, 236, 250);
   border: 1px solid darkgray;
 }

@@ -1,4 +1,4 @@
-import { LOGO_IMAGES } from "./constants";
+import { LOGO_IMAGES, CardType } from "./constants";
 
 export const createRandomCardArray = () => {
   const randomCardsArray = [];
@@ -9,4 +9,9 @@ export const createRandomCardArray = () => {
     cardImages.splice(randomIndex, 1);
   }
   return randomCardsArray;
+};
+
+export const selectRandomCard = (cardsLeftToFind: Array<CardType>) => {
+  let randomIndex = Math.floor(Math.random() * cardsLeftToFind.length);
+  return cardsLeftToFind[randomIndex];
 };

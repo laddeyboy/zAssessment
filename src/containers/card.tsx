@@ -3,7 +3,9 @@ import "./styles/card.css";
 
 interface PassedProps {
   showFront: boolean;
-  frontImage?: string;
+  frontImage: string;
+  id: string;
+  // onClick?: () => void;
 }
 
 const Card: React.FC<PassedProps> = props => {
@@ -13,12 +15,7 @@ const Card: React.FC<PassedProps> = props => {
       {!showFront ? (
         <p className="card-back">?</p>
       ) : (
-        <img
-          className="card-face"
-          // src={require("../images/zoovu-logo-z.png")}
-          src={frontImage}
-          alt="broked"
-        />
+        <img className="card-face" src={frontImage} alt="broked" />
       )}
     </div>
   );

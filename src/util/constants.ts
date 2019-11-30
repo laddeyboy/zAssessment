@@ -4,10 +4,15 @@ import o2Card from "../images/zoovu-logo-o2.png";
 import vCard from "../images/zoovu-logo-v.png";
 import uCard from "../images/zoovu-logo-u.png";
 
-export const LOGO_IMAGES: Array<{ card: string }> = [
-  { card: zCard },
-  { card: oCard },
-  { card: o2Card },
-  { card: vCard },
-  { card: uCard }
+export interface CardType {
+  imgSrc: string;
+  id: string;
+}
+
+export const LOGO_IMAGES: Array<CardType> = [
+  { imgSrc: zCard, id: "zCard" },
+  { imgSrc: oCard, id: "oCard" },
+  { imgSrc: o2Card, id: "o2Card" },
+  { imgSrc: vCard, id: "vCard" },
+  { imgSrc: uCard, id: "uCard" }
 ];

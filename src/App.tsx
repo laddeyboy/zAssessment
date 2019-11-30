@@ -4,38 +4,47 @@ import "./App.css";
 import Score from "./containers/score";
 import FindCard from "./containers/findCard";
 import CardsToPlay from "./containers/cardsToPlay";
-import { createRandomCardArray } from "./util/helpers";
+import PlayArea from "./containers/playArea";
+import { createRandomCardArray, selectRandomCard } from "./util/helpers";
+import { LOGO_IMAGES, CardType } from "./util/constants";
 
 interface OwnState {
-  cardsToPlay: Array<{ card: string }>;
+  cardsToPlay: Array<CardType>;
+  cardsLeftToFind: Array<CardType>;
+  currentCardToFind: CardType | null;
+  startGame: boolean;
 }
 
 class App extends React.Component<{}, OwnState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      cardsToPlay: createRandomCardArray() //cards to pick from and play on the playmat
-      // cardsToFind: [], //cards to show player to select from
-      // currentCardToFind: {}
+      cardsToPlay: createRandomCardArray(), //these are the cards to play
+      cardsLeftToFind: [...LOGO_IMAGES], //array of cars for the full logo
+      currentCardToFind: null,
+      startGame: false
     };
   }
 
   componentDidMount() {
-    console.log("state", this.state.cardsToPlay);
-    //return an array of random cards to play
+    const { cardsLeftToFind } = this.state;
+    this.setState({
+      currentCardToFind: selectRandomCard(cardsLeftToFind)
+    });
   }
 
   render() {
-    const { cardsToPlay } = this.state;
+    console.log("currentCard", this.state.currentCardToFind);
+    const { cardsToPlay, startGame, currentCardToFind } = this.state;
     return (
       <div className="gameArea">
         <div className="gameArea-sidebar">
           <Score />
-          <FindCard />
+          <FindCard startGame={true} currentCard={currentCardToFind} />
         </div>
         <div className="gameArea-playArea">
           <div>
-            <div style={{ height: "50vh" }}>Play Mat</div>
+            <PlayArea cardsToPlay={cardsToPlay} />
             <CardsToPlay cardsToPlay={cardsToPlay} />
           </div>
         </div>
