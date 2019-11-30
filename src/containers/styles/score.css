@@ -1,0 +1,10 @@
+.score-container {
+  height: 10vh;
+  background-color: gray;
+  border: 1px solid darkgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.5rem;
+  padding: 0 2%;
+}
