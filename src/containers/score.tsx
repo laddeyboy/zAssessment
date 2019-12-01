@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles/score.css";
 
-const Score: React.FC = () => {
-  const [secondsElapsed] = useState<number>(0);
+interface PassedProps {
+  startTimer: boolean;
+}
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     console.log("interval", secondsElapsed);
-  //     setSecondsElapsed(secondsElapsed + 1);
-  //   }, 1000);
-  // }, [secondsElapsed]);
+const Score: React.FC<PassedProps> = props => {
+  const [secondsElapsed, setSecondsElapsed] = useState<number>(0);
 
-  console.log("what is secondsElapsed?", secondsElapsed);
+  console.log("what is startTimer", props.startTimer);
+  useEffect(() => {
+    let interval: any = null;
+    interval = setInterval(() => {
+      setSecondsElapsed(secondsElapsed => secondsElapsed + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [secondsElapsed]);
+
   return (
     <div className="score-container">
-      <div>Timer: {("0" + (secondsElapsed % 60)).slice(-2)}</div>
+      <div>Timer: {secondsElapsed}</div>
       <div>Score: </div> {/*this will show the time plus penalties*/}
     </div>
   );

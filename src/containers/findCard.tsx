@@ -9,6 +9,11 @@ interface PassedProps {
 
 const FindCard: React.FC<PassedProps> = props => {
   const { startGame, currentCard } = props;
+
+  const handlePlayerCardClick = (id: string) => {
+    console.log("findCard");
+  };
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -19,6 +24,7 @@ const FindCard: React.FC<PassedProps> = props => {
           showFront={true}
           frontImage={currentCard ? currentCard.imgSrc : ""}
           id={currentCard ? currentCard.id : ""}
+          setSelectPlayerCard={handlePlayerCardClick}
         />
       ) : (
         <button type="button">Start Game</button>

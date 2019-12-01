@@ -5,13 +5,10 @@ import { CardType } from "../util/constants";
 
 interface PassedProps {
   cardsToPlay: Array<CardType>;
+  setSelectPlayerCard: (card: CardType) => void;
 }
 
 const CardsToPlay: React.FC<PassedProps> = props => {
-  const setPlayersGuessingCard = (id: string) => {
-    console.log("what am I clicking?", id);
-  };
-
   const createPlayingCards = () => {
     const { cardsToPlay } = props;
     return cardsToPlay.map((card, index) => {
@@ -21,7 +18,7 @@ const CardsToPlay: React.FC<PassedProps> = props => {
           frontImage={card.imgSrc}
           key={index}
           id={card.id}
-          // onClick={() => setPlayersGuessingCard(card.id)}
+          setSelectPlayerCard={() => props.setSelectPlayerCard(card)}
         />
       );
     });

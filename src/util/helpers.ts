@@ -15,3 +15,12 @@ export const selectRandomCard = (cardsLeftToFind: Array<CardType>) => {
   let randomIndex = Math.floor(Math.random() * cardsLeftToFind.length);
   return cardsLeftToFind[randomIndex];
 };
+
+export const removeCardFromAvailable = (
+  cardsLeftToFind: Array<CardType>,
+  foundCard: CardType
+) => {
+  return cardsLeftToFind.filter(
+    itemNotFound => itemNotFound.id !== foundCard.id
+  );
+};
