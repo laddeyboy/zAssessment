@@ -106,29 +106,33 @@ class App extends React.Component<{}, OwnState> {
       startTimer,
       cardToFind,
       cardsLeftToFind,
+      cardPlayerIsGuessing,
       penalties
     } = this.state;
     return (
-      <div className="gameArea">
-        <div className="gameArea-sidebar">
-          <Score
-            startTimer={startTimer}
-            getTime={this.handleGetTime}
-            penalties={penalties}
-          />
-          {cardsLeftToFind.length > 0 ? (
-            <FindCard startGame={true} currentCard={cardToFind} />
-          ) : null}
-        </div>
-        <div className="gameArea-playArea">
-          <PlayArea
-            cardsNotFound={cardsLeftToFind}
-            checkPlayerGuess={this.handleCheckPlayerGuess}
-          />
-          <CardsToPlay
-            cardsToPlay={cardsToPlay}
-            setSelectPlayerCard={this.handleSelectPlayerCard}
-          />
+      <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+        <Score
+          startTimer={startTimer}
+          getTime={this.handleGetTime}
+          penalties={penalties}
+        />
+        <div className="gameArea">
+          <div className="gameArea-sidebar">
+            {cardsLeftToFind.length > 0 ? (
+              <FindCard startGame={true} currentCard={cardToFind} />
+            ) : null}
+          </div>
+          <div className="gameArea-playArea">
+            <PlayArea
+              cardsNotFound={cardsLeftToFind}
+              checkPlayerGuess={this.handleCheckPlayerGuess}
+            />
+            <CardsToPlay
+              currentSelectedCard={cardPlayerIsGuessing}
+              cardsToPlay={cardsToPlay}
+              setSelectPlayerCard={this.handleSelectPlayerCard}
+            />
+          </div>
         </div>
       </div>
     );

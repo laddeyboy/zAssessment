@@ -6,17 +6,27 @@ interface PassedProps {
   frontImage: string;
   id: string;
   setSelectPlayerCard: (id: string) => void;
+  isActive?: boolean;
 }
 
 const Card: React.FC<PassedProps> = props => {
-  const { showFront, frontImage, setSelectPlayerCard } = props;
+  const { showFront, frontImage, setSelectPlayerCard, isActive } = props;
+
+  const isActiveStyle = {
+    boxShadow: "inset 0px 0px 3px 3px #45daed",
+    border: "none"
+  };
 
   const handleCardClick = () => {
     setSelectPlayerCard(props.id);
   };
 
   return (
-    <div className="card" onClick={handleCardClick}>
+    <div
+      style={isActive ? isActiveStyle : undefined}
+      className="card"
+      onClick={handleCardClick}
+    >
       {!showFront ? (
         <p className="card-back">?</p>
       ) : (

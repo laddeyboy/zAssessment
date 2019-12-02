@@ -21,9 +21,13 @@ const PlayArea: React.FC<PassedProps> = props => {
           id={item.id}
           onClick={() => checkPlayerGuess(item)}
         >
-          {found.length === 0 ? (
-            <img className="card-face" src={item.imgSrc} alt="zoovu logo" />
-          ) : null}
+          <img
+            style={found.length === 0 ? { opacity: 1 } : { opacity: 0.5 }}
+            className="card-face"
+            src={item.imgSrc}
+            alt="zoovu logo"
+          />
+          )
         </div>
       );
     });
