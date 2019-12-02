@@ -19,6 +19,7 @@ interface OwnState {
   cardToFind: CardType | null;
   cardPlayerIsGuessing: CardType;
   playmatSlot: CardType | null;
+  penalties: number;
 }
 
 class App extends React.Component<{}, OwnState> {
@@ -30,7 +31,8 @@ class App extends React.Component<{}, OwnState> {
       cardToFind: null,
       startTimer: false,
       cardPlayerIsGuessing: { imgSrc: "", id: "" }, // this should probably be CardType
-      playmatSlot: null
+      playmatSlot: null,
+      penalties: 0
     };
   }
 
@@ -50,6 +52,8 @@ class App extends React.Component<{}, OwnState> {
         cardToFind: selectRandomCard(cardsLeftToFind)
       });
     }
+    if (PrevState.startTimer !== this.state.startTimer) {
+    }
   }
 
   handleSelectPlayerCard = (card: CardType) => {
@@ -61,7 +65,8 @@ class App extends React.Component<{}, OwnState> {
       cardToFind,
       cardPlayerIsGuessing,
       cardsToPlay,
-      cardsLeftToFind
+      cardsLeftToFind,
+      penalties
     } = this.state;
     if (cardToFind && cardPlayerIsGuessing.id !== "") {
       // ensure player has made a selection
@@ -69,8 +74,6 @@ class App extends React.Component<{}, OwnState> {
         cardToFind.id === cardPlayerIsGuessing.id &&
         cardPlayerIsGuessing.id === card.id
       ) {
-        // show the image on the playmat
-        // switch to the next 'find card'
         const updatedPlayingCards = removeCardFromAvailable(cardsToPlay, card);
         const updateRemainingCards = removeCardFromAvailable(
           cardsLeftToFind,
@@ -80,11 +83,21 @@ class App extends React.Component<{}, OwnState> {
           cardsToPlay: updatedPlayingCards,
           cardsLeftToFind: updateRemainingCards
         });
+        if (cardsLeftToFind.length === 1) {
+          //this is not actually clearing cardsLeftToFind
+          this.setState({ startTimer: false });
+        }
       } else {
+        let penalty = penalties;
+        this.setState({ penalties: penalty + 1 });
         // display a message to try again or penalty
         console.log("TRY AGAIN");
       }
     }
+  };
+
+  handleGetTime = () => {
+    console.log("do something");
   };
 
   render() {
@@ -92,13 +105,17 @@ class App extends React.Component<{}, OwnState> {
       cardsToPlay,
       startTimer,
       cardToFind,
-      cardPlayerIsGuessing,
-      cardsLeftToFind
+      cardsLeftToFind,
+      penalties
     } = this.state;
     return (
       <div className="gameArea">
         <div className="gameArea-sidebar">
-          <Score startTimer={startTimer} />
+          <Score
+            startTimer={startTimer}
+            getTime={this.handleGetTime}
+            penalties={penalties}
+          />
           {cardsLeftToFind.length > 0 ? (
             <FindCard startGame={true} currentCard={cardToFind} />
           ) : null}

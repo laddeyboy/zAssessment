@@ -22,7 +22,7 @@ const PlayArea: React.FC<PassedProps> = props => {
           onClick={() => checkPlayerGuess(item)}
         >
           {found.length === 0 ? (
-            <img className="card-face" src={item.imgSrc} />
+            <img className="card-face" src={item.imgSrc} alt="zoovu logo" />
           ) : null}
         </div>
       );
