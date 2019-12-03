@@ -20,6 +20,7 @@ interface OwnState {
   cardPlayerIsGuessing: CardType;
   playmatSlot: CardType | null;
   penalties: number;
+  finalScore: number;
 }
 
 class App extends React.Component<{}, OwnState> {
@@ -32,7 +33,8 @@ class App extends React.Component<{}, OwnState> {
       startTimer: false,
       cardPlayerIsGuessing: { imgSrc: "", id: "" }, // this should probably be CardType
       playmatSlot: null,
-      penalties: 0
+      penalties: 0,
+      finalScore: 0
     };
   }
 
@@ -96,8 +98,9 @@ class App extends React.Component<{}, OwnState> {
     }
   };
 
-  handleGetTime = () => {
-    console.log("do something");
+  handleSetFinalScore = (finalScore: number) => {
+    console.log("finalScore is", finalScore);
+    this.setState({ finalScore });
   };
 
   render() {
@@ -107,20 +110,24 @@ class App extends React.Component<{}, OwnState> {
       cardToFind,
       cardsLeftToFind,
       cardPlayerIsGuessing,
-      penalties
+      penalties,
+      finalScore
     } = this.state;
     return (
       <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
         <Score
           startTimer={startTimer}
-          getTime={this.handleGetTime}
           penalties={penalties}
+          setFinalScore={this.handleSetFinalScore}
         />
         <div className="gameArea">
           <div className="gameArea-sidebar">
             {cardsLeftToFind.length > 0 ? (
               <FindCard startGame={true} currentCard={cardToFind} />
-            ) : null}
+            ) : (
+              <h2 className="end-game">Your Final Score is: {finalScore}</h2>
+              // add button here to restart....
+            )}
           </div>
           <div className="gameArea-playArea">
             <PlayArea

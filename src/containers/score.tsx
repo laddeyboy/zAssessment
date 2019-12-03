@@ -4,12 +4,13 @@ import zoovuLogo from "../images/zoovu-logo.png";
 
 interface PassedProps {
   startTimer: boolean;
-  getTime: (timeInSecs: number) => void;
   penalties: number;
+  setFinalScore: (finalScore: number) => void;
 }
 
 const Score: React.FC<PassedProps> = props => {
   const [secondsElapsed, setSecondsElapsed] = useState<number>(0);
+  const [score, setCurrentScore] = useState<number>(0);
 
   useEffect(() => {
     let interval: any = null;
@@ -18,7 +19,11 @@ const Score: React.FC<PassedProps> = props => {
         setSecondsElapsed(secondsElapsed => secondsElapsed + 1);
       }, 1000);
     } else {
+      // game over send back the score
       clearInterval(interval);
+      let finalScore = props.setFinalScore(
+        secondsElapsed + props.penalties * 10
+      );
     }
     return () => clearInterval(interval);
   }, [secondsElapsed, props.startTimer]);
