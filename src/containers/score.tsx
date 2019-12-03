@@ -31,9 +31,12 @@ const Score: React.FC<PassedProps> = props => {
         alt="Zoovu Company Logo"
         width="100px"
       />
-      <div>Timer: {("0" + (secondsElapsed % 60)).slice(-2)} secs</div>
+      <div>
+        Timer: {Math.floor(secondsElapsed / 60)}:
+        {("0" + (secondsElapsed % 60)).slice(-2)}{" "}
+      </div>
       <div style={{ marginRight: "2%" }}>
-        Score: {(secondsElapsed % 60) + props.penalties * 10}
+        Score: {secondsElapsed + props.penalties * 10}
       </div>
     </div>
   );
