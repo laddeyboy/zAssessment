@@ -11,6 +11,14 @@ interface PassedProps {
 const PlayArea: React.FC<PassedProps> = props => {
   const { cardsNotFound, checkPlayerGuess } = props;
 
+  const onDragOver = (evt: any) => {
+    evt.preventDefault();
+  };
+  const onDrop = (evt: any, item: CardType) => {
+    const { checkPlayerGuess } = props;
+    checkPlayerGuess(item);
+  };
+
   const createPlayingMat = () => {
     return LOGO_IMAGES.map(item => {
       const found = cardsNotFound.filter(card => card.id === item.id);
@@ -20,6 +28,8 @@ const PlayArea: React.FC<PassedProps> = props => {
           key={item.id}
           id={item.id}
           onClick={() => checkPlayerGuess(item)}
+          onDragOver={evt => onDragOver(evt)}
+          onDrop={evt => onDrop(evt, item)}
         >
           <img
             style={found.length === 0 ? { opacity: 1 } : { opacity: 0.5 }}
@@ -27,7 +37,6 @@ const PlayArea: React.FC<PassedProps> = props => {
             src={item.imgSrc}
             alt="zoovu logo"
           />
-          )
         </div>
       );
     });

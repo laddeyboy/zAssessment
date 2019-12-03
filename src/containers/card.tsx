@@ -21,11 +21,18 @@ const Card: React.FC<PassedProps> = props => {
     setSelectPlayerCard(props.id);
   };
 
+  const onDragStart = (evt: any, id: string) => {
+    evt.dataTransfer.setData("id", id);
+    setSelectPlayerCard(props.id);
+  };
+
   return (
     <div
       style={isActive ? isActiveStyle : undefined}
       className="card"
       onClick={handleCardClick}
+      onDragStart={evt => onDragStart(evt, props.id)}
+      draggable
     >
       {!showFront ? (
         <p className="card-back">?</p>

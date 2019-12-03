@@ -84,7 +84,7 @@ class App extends React.Component<{}, OwnState> {
           cardsLeftToFind: updateRemainingCards
         });
         if (cardsLeftToFind.length === 1) {
-          //this is not actually clearing cardsLeftToFind
+          //here there are no more cards to find.  End the game.
           this.setState({ startTimer: false });
         }
       } else {
