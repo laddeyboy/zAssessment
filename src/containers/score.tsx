@@ -19,11 +19,9 @@ const Score: React.FC<PassedProps> = props => {
         setSecondsElapsed(secondsElapsed => secondsElapsed + 1);
       }, 1000);
     } else {
-      // game over send back the score
       clearInterval(interval);
-      let finalScore = props.setFinalScore(
-        secondsElapsed + props.penalties * 10
-      );
+      props.setFinalScore(secondsElapsed + props.penalties * 10);
+      setSecondsElapsed(0);
     }
     return () => clearInterval(interval);
   }, [secondsElapsed, props.startTimer]);

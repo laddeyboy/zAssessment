@@ -103,6 +103,19 @@ class App extends React.Component<{}, OwnState> {
     this.setState({ finalScore });
   };
 
+  resetGame = () => {
+    this.setState({
+      cardsToPlay: createRandomCardArray(), //these are the cards to play
+      cardsLeftToFind: [...LOGO_IMAGES], //array of cars for the full logo
+      cardToFind: null,
+      startTimer: false,
+      cardPlayerIsGuessing: { imgSrc: "", id: "" }, // this should probably be CardType
+      playmatSlot: null,
+      penalties: 0,
+      finalScore: 0
+    });
+  };
+
   render() {
     const {
       cardsToPlay,
@@ -125,8 +138,22 @@ class App extends React.Component<{}, OwnState> {
             {cardsLeftToFind.length > 0 ? (
               <FindCard startGame={true} currentCard={cardToFind} />
             ) : (
-              <h2 className="end-game">Your Final Score is: {finalScore}</h2>
-              // add button here to restart....
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}
+              >
+                <h2 className="end-game">Your Final Score is: {finalScore}</h2>
+                <button
+                  className="restart"
+                  type="button"
+                  onClick={this.resetGame}
+                >
+                  Play Again
+                </button>
+              </div>
             )}
           </div>
           <div className="gameArea-playArea">
