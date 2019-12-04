@@ -10,7 +10,6 @@ interface PassedProps {
 
 const Score: React.FC<PassedProps> = props => {
   const [secondsElapsed, setSecondsElapsed] = useState<number>(0);
-  const [score, setCurrentScore] = useState<number>(0);
 
   useEffect(() => {
     let interval: any = null;
